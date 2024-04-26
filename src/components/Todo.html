@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Todo Item</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f2f2f2;
+      padding: 20px;
+    }
+
+    .todo-item {
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 5px;
+      box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+      margin-bottom: 20px;
+    }
+
+    h2 {
+      margin-top: 0;
+    }
+
+    input[type="text"],
+    input[type="description"],
+    select {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 3px;
+      margin-bottom: 20px;
+    }
+
+    button {
+      background-color: #4CAF50;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 3px;
+      cursor: pointer;
+      margin-right: 10px;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+
+    .edit-buttons {
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+<div className="todo-item">
+  {isEditing ? (
+  <>
+  <input
+          type="text"
+          value={editedTitle}
+          onChange={ (e) => setEditedTitle(e.target.value)}
+  />
+  <input
+          type="text"
+          value={editedDescription}
+          onChange={ (e)=> setEditedDescription(e.target.value)}
+  />
+  <select value={status} onChange={ (e) => setStatus(e.target.value)}>
+    <option value="completed">Completed</option>
+    <option value="not_completed">Not Completed</option>
+  </select>
+  <div className="edit-buttons">
+    <button onClick={handleEdit}>Save</button>
+    <button onClick={ () => setIsEditing(false)}>Cancel</button>
+  </div>
+
+) : (
+<>
+<h2>{todo.title}</h2>
+<p>{todo.description}</p>
+<p>Status: {todo.status}</p>
+>
+)}
+<div className="button-group">
+  <button onClick={ () => setIsEditing(true)}>Edit</button>
+  <button onClick={handleDelete}>Delete</button>
+  <Link to={`/todos/${todo.id}`}>View Details</Link>
+</div>
+</div>
+</body>
+</html>
